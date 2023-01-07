@@ -1,31 +1,33 @@
 .set ALIGN, 1<<0
 .set MEMINFO, 1<<1
 .set FLAGS, ALIGN | MEMINFO
-.set MAGIC, 0xbadb002
+.set MAGIC, 0x1badb002
 .set CHECKSUM, -(MAGIC + FLAGS)
 
 .section .multiboot
-.align 4
-.long MAGIC
-.long FLAGS
-.long CHECKSUM
-
-.section .bss
-.align 16
-stack_bottom:
-.skip 16384
-stack_top:
+  .long MAGIC
+  .long FLAGS
+  .long CHECKSUM
 
 .section .text
+.extern call_constructors
+.extern kernel_main
 .global _start
-.type _start, @function
 
 _start:
   mov $stack_top, %esp
+
+  call call_constructors
+
+  push %eax
+  push %ebx
   call kernel_main
 
+_stop:
   cli
-1:hlt
-  jmp 1b
+  hlt
+  jmp _stop
 
-.size _start, . - _start
+.section .bss
+.space 2*1024*1024;
+stack_top:
