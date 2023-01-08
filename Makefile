@@ -1,9 +1,10 @@
 ASPARAMS = --32
-GCCPARAMS = -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -Wno-write-strings
+GCCPARAMS = -m32 -Iinclude -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -Wno-write-strings
 LDPARAMS = -melf_i386
 
 objects = obj/boot.o \
-			obj/kernel.o
+			obj/kernel.o \
+			obj/gdt.o
 
 obj/%.o: src/%.s
 	mkdir -p $(@D)
@@ -23,7 +24,7 @@ kernel.iso: grub.cfg obj/kernel.bin
 	grub-mkrescue --output=$@ iso
 	rm -rf iso
 
-run: kernel.iso
+all: kernel.iso
 
 
 clean:
