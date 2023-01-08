@@ -6,7 +6,7 @@
 class GlobalDescriptorTable
 {
 public:
-    /// @brief see https://wiki.osdev.org/Global_Descriptor_Table for details for the 
+    /// @brief see https://wiki.osdev.org/Global_Descriptor_Table for details about the 
     /// structure of segment descriptor.
     class SegmentDescriptor
     {
@@ -27,8 +27,10 @@ public:
 
     SegmentDescriptor nullSegmentDescriptor;
     SegmentDescriptor unusedSegmentDescriptor;
-    SegmentDescriptor codeSegmentDescriptor;
-    SegmentDescriptor dataSegmentDescriptor;
+    /*kernel code segment*/
+    SegmentDescriptor kernelCodeSegmentDescriptor;
+    /*kernel data segment*/
+    SegmentDescriptor kernelDataSegmentDescriptor;
 public:
     GlobalDescriptorTable();
     ~GlobalDescriptorTable();

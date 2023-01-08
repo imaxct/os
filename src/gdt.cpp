@@ -3,8 +3,8 @@
 GlobalDescriptorTable::GlobalDescriptorTable()
 : nullSegmentDescriptor(0, 0, 0),
 unusedSegmentDescriptor(0, 0, 0),
-codeSegmentDescriptor(0, 64*1024*1024, 0x9A),
-dataSegmentDescriptor(0, 64*1024*1024, 0x92)
+kernelCodeSegmentDescriptor(0, 64*1024*1024, 0x9A),
+kernelDataSegmentDescriptor(0, 64*1024*1024, 0x92)
 {
     uint32_t i[2];
     i[0] = (uint32_t)this;
@@ -18,12 +18,12 @@ GlobalDescriptorTable::~GlobalDescriptorTable()
 
 uint16_t GlobalDescriptorTable::DataSegmentSelector()
 {
-    return (uint8_t*)&dataSegmentDescriptor - (uint8_t*)this;
+    return (uint8_t*)&kernelDataSegmentDescriptor - (uint8_t*)this;
 }
 
 uint16_t GlobalDescriptorTable::CodeSegmentSelector()
 {
-    return (uint8_t*)&codeSegmentDescriptor - (uint8_t*)this;
+    return (uint8_t*)&kernelCodeSegmentDescriptor - (uint8_t*)this;
 }
 
 GlobalDescriptorTable::SegmentDescriptor::SegmentDescriptor(uint32_t base, uint32_t limit, uint8_t access)
