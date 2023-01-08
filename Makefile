@@ -4,7 +4,8 @@ LDPARAMS = -melf_i386
 
 objects = obj/boot.o \
 			obj/kernel.o \
-			obj/gdt.o
+			obj/gdt.o \
+			obj/port.o
 
 obj/%.o: src/%.s
 	mkdir -p $(@D)
@@ -28,6 +29,4 @@ all: kernel.iso
 
 
 clean:
-	rm -rf obj/*.o
-	rm -rf obj/*.bin
-	rm -rf kernel.iso
+	rm -rf obj/*.o obj/*.bin kernel.iso

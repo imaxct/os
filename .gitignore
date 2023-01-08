@@ -1,3 +1,4 @@
 obj/
 *.iso
 iso/
+.vscode/
