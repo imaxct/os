@@ -3,9 +3,11 @@ GCCPARAMS = -m32 -Iinclude -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti 
 LDPARAMS = -melf_i386
 
 objects = obj/boot.o \
-			obj/kernel.o \
 			obj/gdt.o \
-			obj/port.o
+			obj/port.o \
+			obj/interrupts.o \
+			obj/interrupt_stubs.o \
+			obj/kernel.o
 
 obj/%.o: src/%.s
 	mkdir -p $(@D)

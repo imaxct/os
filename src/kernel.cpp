@@ -1,6 +1,7 @@
 #include <types.h>
 #include <gdt.h>
 #include <port.h>
+#include <interrupts.h>
 
 void print(char *str)
 {
@@ -53,6 +54,8 @@ extern "C" void kernel_main(void* multiboot_structure, uint32_t /*magic*/)
     print("Hello World\nThe third line.");
 
     GlobalDescriptorTable gdt;
+    InterruptManager interrupts(&gdt);
 
+    interrupts.Activate();
     while (1);
 }
